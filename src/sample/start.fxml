@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="345.0" prefWidth="416.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="sample.Controller">
+   <children>
+      <Button fx:id="btnStart" layoutX="167.0" layoutY="216.0" mnemonicParsing="false" onMouseClicked="#startClick" prefHeight="38.0" prefWidth="82.0" text="Start" />
+      <ColorPicker fx:id="colorPicker" layoutX="167.0" layoutY="116.0" onAction="#pickColor" prefHeight="46.0" prefWidth="110.0" />
+      <Label layoutX="98.0" layoutY="139.0" text="WallColor" />
+   </children>
+</AnchorPane>
