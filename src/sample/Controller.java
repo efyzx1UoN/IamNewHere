@@ -22,7 +22,7 @@ public class Controller implements Initializable{
 	private Color wallColor=Color.BLACK;
 
 	private Stage stage;
-
+     @FXML
 	public void startClick(MouseEvent mouseEvent) {
 		Main main=new Main();
 		main.setWallColor(wallColor);

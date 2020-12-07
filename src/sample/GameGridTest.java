@@ -1,6 +1,6 @@
-/*package sample;
+package sample;
 
-import static org.junit.Assert.*;
+/*import static org.junit.Assert.*;
 
 import java.awt.Dimension;
 import java.awt.Point;

@@ -40,7 +40,7 @@ public class Main extends Application {
 
     public void setWallColor(Color wallColor) {
         this.wallColor = wallColor;
-        GraphicObject.setWallColor(wallColor);
+       GraphicObject.setWallColor(wallColor);
     }
 
 

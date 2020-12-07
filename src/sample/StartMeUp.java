@@ -307,6 +307,7 @@ public class StartMeUp {
     }
 
     public void toggleDebug() {
+
         debug = !debug;
     }
 
