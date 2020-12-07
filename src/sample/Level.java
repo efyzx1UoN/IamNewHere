@@ -21,8 +21,8 @@ public final class Level implements Iterable<GameObject> {
         if (StartMeUp.isDebugActive()) {
             System.out.printf("[ADDING LEVEL] LEVEL [%d]: %s\n", levelIndex, levelName);
         }
-        
-        
+
+
 
         name = levelName;
         index = levelIndex;
@@ -95,44 +95,44 @@ public final class Level implements Iterable<GameObject> {
     public void moveGameObjectTo(GameObject object, Point source, Point destination) {
         objectsGrid.putGameObjectAt(getObjectAt(destination), source);
         objectsGrid.putGameObjectAt(object, destination);
-        
+
     }
-    
+
     class Step{
-    	GameGrid objectGrid;
-    	Point keeperPoint;
-    	public Step(GameGrid gameGrid,Point point) {
-			// TODO Auto-generated constructor stub
-    		keeperPoint=new Point(point);
-    		copyGrid(gameGrid);
-		}
-    	
-    	private void copyGrid(GameGrid gameGrid) {
-    		int columns=gameGrid.COLUMNS;
-    		int rows=gameGrid.ROWS;
-			objectGrid=new GameGrid(columns, rows);
-			for (int i = 0; i < rows; i++) {
-				for (int j = 0; j < columns; j++) {
-					objectGrid.putGameObjectAt(gameGrid.getGameObjectAt(i, j), i, j);
-				}
-			}
-		}
+        GameGrid objectGrid;
+        Point keeperPoint;
+        public Step(GameGrid gameGrid,Point point) {
+            // TODO Auto-generated constructor stub
+            keeperPoint=new Point(point);
+            copyGrid(gameGrid);
+        }
+
+        private void copyGrid(GameGrid gameGrid) {
+            int columns=gameGrid.COLUMNS;
+            int rows=gameGrid.ROWS;
+            objectGrid=new GameGrid(columns, rows);
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    objectGrid.putGameObjectAt(gameGrid.getGameObjectAt(i, j), i, j);
+                }
+            }
+        }
     }
-    
-    private ArrayList<Step> steps=new ArrayList<Step>();
-    
+
+    private ArrayList<Step> steps=new ArrayList<Level.Step>();
+
     public void logMove() {
-		steps.add(0,new Step(objectsGrid, keeperPosition));
-	}
-    
+        steps.add(0,new Step(objectsGrid, keeperPosition));
+    }
+
     public void undo() {
-    	if (steps.isEmpty()) {
-			return;
-		}
-		Step step=steps.remove(0);
-		objectsGrid=step.objectGrid;
-		keeperPosition=step.keeperPoint;
-	}
+        if (steps.isEmpty()) {
+            return;
+        }
+        Step step=steps.remove(0);
+        objectsGrid=step.objectGrid;
+        keeperPosition=step.keeperPoint;
+    }
 
     @Override
     public String toString() {

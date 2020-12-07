@@ -37,11 +37,11 @@ public class Main extends Application {
     private File saveFile;
     private MenuBar MENU;
     private Color wallColor;
-    
-   public void setWallColor(Color wallColor) {
-	this.wallColor = wallColor;
-	GraphicObject.setWallColor(wallColor);
-}
+
+    public void setWallColor(Color wallColor) {
+        this.wallColor = wallColor;
+        GraphicObject.setWallColor(wallColor);
+    }
 
 
     public static void main(String[] args) {
@@ -187,7 +187,7 @@ public class Main extends Application {
 
     public void addObjectToGrid(GameObject gameObject, Point location) {
         GraphicObject graphicObject = new GraphicObject(gameObject);
-        
+
         gameGrid.add(graphicObject, location.y, location.x);
     }
 
@@ -204,15 +204,15 @@ public class Main extends Application {
         }
     }
 
-    public void undo() { 
-    	gameEngine.undo(); 
-    	reloadGrid();
-    
+    public void undo() {
+        gameEngine.undo();
+        reloadGrid();
+
     }
-    
+
     public void resetLevel() {
-    	
-    	
+
+
     }
 
     public void showAbout() {
@@ -223,13 +223,13 @@ public class Main extends Application {
     }
     public void toggleMusic(RadioMenuItem radioMenuItemMusic) {
         // TODO
-    	
-    	if (radioMenuItemMusic.isSelected()) {
-			gameEngine.playMusic();
-		}else {
-			gameEngine.stopMusic();
-		}
-    	
+
+        if (radioMenuItemMusic.isSelected()) {
+            gameEngine.playMusic();
+        }else {
+            gameEngine.stopMusic();
+        }
+
     }
     public void toggleDebug() {
         gameEngine.toggleDebug();

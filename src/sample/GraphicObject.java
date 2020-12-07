@@ -13,15 +13,15 @@ import javafx.util.Duration;
 
 class GraphicObject extends Rectangle {
 
-	private static Color wallColor=Color.BLACK;
-	private static Image image=new Image("sample/sprites.png");
-	
-	
-	
-	public static void setWallColor(Color wallColor) {
-		GraphicObject.wallColor = wallColor;
-	}
-	
+    private static Color wallColor=Color.BLACK;
+    private static Image image=new Image("sample/sprites.png");
+
+
+
+    public static void setWallColor(Color wallColor) {
+        GraphicObject.wallColor = wallColor;
+    }
+
     GraphicObject(GameObject obj) {
         Paint color;
         switch (obj) {
@@ -70,11 +70,11 @@ class GraphicObject extends Rectangle {
         this.setHeight(30);
         this.setWidth(30);
         if (obj==GameObject.CRATE) {
-        	 
-             ImagePattern imagePattern=new ImagePattern(image, -30*3-1, 0, 200, 200,false);
-             
-             this.setFill(imagePattern);;
-		}else if (obj != GameObject.WALL) {
+
+            ImagePattern imagePattern=new ImagePattern(image, -30*3-1, 0, 200, 200,false);
+
+            this.setFill(imagePattern);;
+        }else if (obj != GameObject.WALL) {
             this.setArcHeight(50);
             this.setArcWidth(50);
         }

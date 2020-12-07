@@ -42,11 +42,11 @@ public class StartMeUp {
             System.out.println("Cannot create logger.");
         } catch (NoSuchElementException e) {
             logger.warning("Cannot load the default save file: " + e.getStackTrace());
-        } 
-      
-		
-		
-        
+        }
+
+
+
+
         loadScore();
     }
 
@@ -93,7 +93,7 @@ public class StartMeUp {
         if (isGameComplete()) {
             return;
         }
-        
+
         getCurrentLevel().logMove();
 
         Point keeperPosition = currentLevel.getKeeperPosition();
@@ -152,51 +152,51 @@ public class StartMeUp {
             }
         }
     }
-    
+
     private void scoreDialog() {
-    	StringBuilder stringBuilder=new StringBuilder();
-    	stringBuilder.append("\nScoreList:\n");
-    	for (Integer score:scoreList) {
-			stringBuilder.append(score+"\n");
-		}
-		JOptionPane.showMessageDialog(null, "Score:"+score+stringBuilder.toString());
-	}
-    
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("\nScoreList:\n");
+        for (Integer score:scoreList) {
+            stringBuilder.append(score+"\n");
+        }
+        JOptionPane.showMessageDialog(null, "Score:"+score+stringBuilder.toString());
+    }
+
     public void saveScore() {
-    	if (score==0) {
-			return;
-		}
-		scoreList.add(score);
-		PrintWriter printWriter;
-		Collections.sort(scoreList,Collections.reverseOrder());
-		try {
-			printWriter = new PrintWriter("score.txt");
-			for (Integer score:scoreList) {
-				printWriter.println(score);
-			}
-			printWriter.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	}
-    
+        if (score==0) {
+            return;
+        }
+        scoreList.add(score);
+        PrintWriter printWriter;
+        Collections.sort(scoreList,Collections.reverseOrder());
+        try {
+            printWriter = new PrintWriter("score.txt");
+            for (Integer score:scoreList) {
+                printWriter.println(score);
+            }
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+    }
+
     private void loadScore() {
-		try {
-			BufferedReader bufferedReader=new BufferedReader(new FileReader("score.txt"));
-			String line;
-			while ((line=bufferedReader.readLine())!=null) {
-				scoreList.add(Integer.parseInt(line));
-			}
-			bufferedReader.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			
-		}
-		
-	}
+        try {
+            BufferedReader bufferedReader=new BufferedReader(new FileReader("score.txt"));
+            String line;
+            while ((line=bufferedReader.readLine())!=null) {
+                scoreList.add(Integer.parseInt(line));
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+
+        }
+
+    }
 
     public List<Level> loadGameFile(InputStream input) {
         List<Level> levels = new ArrayList<>(5);
@@ -253,10 +253,10 @@ public class StartMeUp {
 
         return levels;
     }
-    
+
     public void undo() {
-		getCurrentLevel().undo();
-	}
+        getCurrentLevel().undo();
+    }
 
     public boolean isGameComplete() {
         return gameComplete;
@@ -264,13 +264,13 @@ public class StartMeUp {
 
     public void createPlayer() {
         //File filePath = new File(getClass().getClassLoader().getResource("music/puzzle_theme.wav").toString());
-       try {
-    	   Media music = new Media(getClass().getResource("./")+"puzzle_theme.wav");
-           player = new MediaPlayer(music);
-	} catch (Exception e) {
-		// TODO: handle exception
-	}
-       
+        try {
+            Media music = new Media(getClass().getResource("./")+"puzzle_theme.wav");
+            player = new MediaPlayer(music);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
         //player.play();
         //player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
     }
