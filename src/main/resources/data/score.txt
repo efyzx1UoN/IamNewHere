@@ -1,0 +1,8 @@
+a,1
+b,1
+c,1
+null,1
+playername,1
+playername,1
+d,0
+e,0
