@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="353.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane prefHeight="353.0" prefWidth="478.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.Controller">
    <children>
       <Button fx:id="btnStart" layoutX="140.0" layoutY="218.0" mnemonicParsing="false" onMouseClicked="#startClick" prefHeight="38.0" prefWidth="82.0" text="Start" />
       <ColorPicker fx:id="colorPicker" layoutX="112.0" layoutY="117.0" onAction="#pickColor" prefHeight="46.0" prefWidth="110.0" />

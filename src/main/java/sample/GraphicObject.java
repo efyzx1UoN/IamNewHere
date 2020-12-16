@@ -2,33 +2,43 @@ package sample;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import sample.Game.GameObject;
 
-import java.io.InputStream;
+/**
+ * @author Zihui xu - Modified
+ * @version 1.0
+ * render elements of the game
+ */
+public class GraphicObject extends Rectangle {
 
-class GraphicObject extends Rectangle {
+    private static Color wallColor = Color.BLACK;
+    private static Image image = new Image(GraphicObject.class.
+            getResourceAsStream("sprites.png"));
 
-	private static Color wallColor=Color.BLACK;
-	private static Image image=new Image(GraphicObject.class.getResourceAsStream("sprites.png"));
+
+    private static KeyCode keyCode = KeyCode.DOWN;
 
 
-	private static KeyCode keyCode=KeyCode.DOWN;
-	
-	
-	
-	public static void setWallColor(Color wallColor) {
-		GraphicObject.wallColor = wallColor;
-	}
-	
-    GraphicObject(GameObject obj) {
+    /**
+     * the method is setting background color
+     *
+     * @param wallColor is Color Object
+     */
+    public static void setWallColor(Color wallColor) {
+        GraphicObject.wallColor = wallColor;
+    }
+
+    /**
+     * @param obj
+     */
+    public GraphicObject(GameObject obj) {
         Paint color;
         switch (obj) {
             case WALL:
@@ -75,15 +85,16 @@ class GraphicObject extends Rectangle {
         this.setFill(color);
         this.setHeight(30);
         this.setWidth(30);
-        if (obj==GameObject.CRATE) {
+        if (obj == GameObject.CRATE) {
 
-             ImagePattern imagePattern=new ImagePattern(image, -30*3-1, 0, 200, 200,false);
-             
-             this.setFill(imagePattern);
-		}else if (obj==GameObject.KEEPER) {
-        	
+            ImagePattern imagePattern = new ImagePattern(image,
+                    -30 * 3 - 1, 0, 200, 200, false);
+
+            this.setFill(imagePattern);
+        } else if (obj == GameObject.KEEPER) {
+
             this.setFill(keeperImagePattern());
-		}else if (obj != GameObject.WALL) {
+        } else if (obj != GameObject.WALL) {
             this.setArcHeight(50);
             this.setArcWidth(50);
         }
@@ -93,33 +104,38 @@ class GraphicObject extends Rectangle {
 //            this.setStrokeWidth(0.25);
 //        }
     }
-    
-    private ImagePattern keeperImagePattern() {
-    	ImagePattern imagePattern=new ImagePattern(image, -30*12-1, 0, 200, 200,false);
-    	switch (keyCode) {
-		case UP:
-			imagePattern=new ImagePattern(image, -30*12-5, 0,400, 200,false);
-			break;
-		case DOWN:
-			imagePattern=new ImagePattern(image, -30*11+20, -30*4, 360, 200,false);
-			break;
-		case LEFT:
-			imagePattern=new ImagePattern(image, -30*10+20, -30*3, 360, 200,false);
-			break;
-		case RIGHT:
-			imagePattern=new ImagePattern(image, -30*10+20, -30*4, 360, 200,false);
-			break;
 
-		default:
-			break;
-		}
-    	
-		return imagePattern;
-		
-	}
-    
+    private ImagePattern keeperImagePattern() {
+        ImagePattern imagePattern = new ImagePattern(image,
+                -30 * 12 - 1, 0, 200, 200, false);
+        switch (keyCode) {
+            case UP:
+                imagePattern = new ImagePattern(image,
+                        -30 * 12 - 5, 0, 400, 200, false);
+                break;
+            case DOWN:
+                imagePattern = new ImagePattern(image,
+                        -30 * 11 + 20, -30 * 4, 360, 200, false);
+                break;
+            case LEFT:
+                imagePattern = new ImagePattern(image,
+                        -30 * 10 + 20, -30 * 3, 360, 200, false);
+                break;
+            case RIGHT:
+                imagePattern = new ImagePattern(image,
+                        -30 * 10 + 20, -30 * 4, 360, 200, false);
+                break;
+
+            default:
+                break;
+        }
+
+        return imagePattern;
+
+    }
+
     public static void setKeyCode(KeyCode keyCode) {
-		GraphicObject.keyCode = keyCode;
-	}
+        GraphicObject.keyCode = keyCode;
+    }
 
 }

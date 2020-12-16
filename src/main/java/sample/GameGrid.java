@@ -1,5 +1,8 @@
 package sample;
 
+import sample.Game.GameObject;
+import sample.StartMeUp;
+
 import java.awt.*;
 import java.util.Iterator;
 
@@ -7,13 +10,13 @@ public class GameGrid implements Iterable {
 
     final int COLUMNS;
     final int ROWS;
-    private GameObject[][] gameObjects;
+    private GameObject[][] m_gameObjects;
 
     public GameGrid(int columns, int rows) {
         COLUMNS = columns;
         ROWS = rows;
 
-        gameObjects = new GameObject[COLUMNS][ROWS];
+        m_gameObjects = new GameObject[COLUMNS][ROWS];
     }
 
     static Point translatePoint(Point sourceLocation, Point delta) {
@@ -38,7 +41,7 @@ public class GameGrid implements Iterable {
             throw new ArrayIndexOutOfBoundsException("The point [" + col + ":" + row + "] is outside the map.");
         }
 
-        return gameObjects[col][row];
+        return m_gameObjects[col][row];
     }
 
     public GameObject getGameObjectAt(Point p) {
@@ -59,8 +62,8 @@ public class GameGrid implements Iterable {
             return false;
         }
 
-        gameObjects[x][y] = gameObject;
-        return gameObjects[x][y] == gameObject;
+        m_gameObjects[x][y] = gameObject;
+        return m_gameObjects[x][y] == gameObject;
     }
 
     public boolean putGameObjectAt(GameObject gameObject, Point p) {
@@ -77,9 +80,9 @@ public class GameGrid implements Iterable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(gameObjects.length);
+        StringBuilder sb = new StringBuilder(m_gameObjects.length);
 
-        for (GameObject[] gameObject : gameObjects) {
+        for (GameObject[] gameObject : m_gameObjects) {
             for (GameObject aGameObject : gameObject) {
                 if (aGameObject == null) {
                     aGameObject = GameObject.DEBUG_OBJECT;

@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"XuZihui.intellij_11","l":"sample"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"XuZihui.intellij_11","l":"sample"},{"m":"XuZihui.intellij_11","l":"sample.Controller"},{"m":"XuZihui.intellij_11","l":"sample.Game"}]

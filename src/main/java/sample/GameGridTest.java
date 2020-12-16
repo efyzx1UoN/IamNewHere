@@ -7,6 +7,7 @@ import java.awt.Point;
 
 import org.junit.Before;
 import org.junit.Test;
+import sample.Game.GameObject;
 
 public class GameGridTest {
 
@@ -67,6 +68,6 @@ public class GameGridTest {
 		assertTrue(gameGrid.getGameObjectAt(new Point(10, 10))==GameObject.CRATE);
 	}
 
-	
+
 
 }

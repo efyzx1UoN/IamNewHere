@@ -3,8 +3,8 @@ package sample;
 import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import sample.Game.*;
 
-import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JOptionPane;
 
 import java.awt.*;

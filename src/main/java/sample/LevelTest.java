@@ -7,6 +7,9 @@ import java.io.InputStream;
 
 import org.junit.Before;
 import org.junit.Test;
+import sample.Game.GameObject;
+import sample.Level;
+import sample.StartMeUp;
 
 public class LevelTest {
 
@@ -43,7 +46,7 @@ public class LevelTest {
 
 	@Test
 	public void testGetObjectAt() {
-		assertTrue(level.getObjectAt(new Point(0,0))==GameObject.WALL);
+		assertTrue(level.getObjectAt(new Point(0,0))== GameObject.WALL);
 	}
 	
 

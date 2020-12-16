@@ -7,5 +7,6 @@ module XuZihui.intellij_11{
     requires java.desktop;
     requires java.logging;
     requires junit;
-    opens sample;
+    opens sample.Controller to javafx.fxml;
+    exports sample to javafx.graphics;
         }
