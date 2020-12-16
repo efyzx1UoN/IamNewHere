@@ -35,8 +35,8 @@ public class GraphicObject extends Rectangle {
         GraphicObject.wallColor = wallColor;
     }
 
-    /**
-     * @param obj
+    /** the method is setting elements
+     * @param obj is GameObject
      */
     public GraphicObject(GameObject obj) {
         Paint color;
@@ -105,6 +105,10 @@ public class GraphicObject extends Rectangle {
 //        }
     }
 
+    /**
+     * the method is setting pattern elements
+     * @return  ImagePattern
+     */
     private ImagePattern keeperImagePattern() {
         ImagePattern imagePattern = new ImagePattern(image,
                 -30 * 12 - 1, 0, 200, 200, false);
