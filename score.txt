@@ -1,2 +1,1 @@
-playername,3
 playername,1
