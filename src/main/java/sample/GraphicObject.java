@@ -138,6 +138,10 @@ public class GraphicObject extends Rectangle {
 
     }
 
+    /***
+     * the Method is setting keycode
+     * @param keyCode is keycode object
+     */
     public static void setKeyCode(KeyCode keyCode) {
         GraphicObject.keyCode = keyCode;
     }
