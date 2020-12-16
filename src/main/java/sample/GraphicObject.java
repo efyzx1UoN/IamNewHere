@@ -18,8 +18,8 @@ import sample.Game.GameObject;
  */
 public class GraphicObject extends Rectangle {
 
-    private static Color wallColor = Color.BLACK;
-    private static Image image = new Image(GraphicObject.class.
+    private static Color m_wallColor = Color.BLACK;
+    private static Image m_image = new Image(GraphicObject.class.
             getResourceAsStream("sprites.png"));
 
 
@@ -32,7 +32,7 @@ public class GraphicObject extends Rectangle {
      * @param wallColor is Color Object
      */
     public static void setWallColor(Color wallColor) {
-        GraphicObject.wallColor = wallColor;
+        GraphicObject.m_wallColor = wallColor;
     }
 
     /** the method is setting elements
@@ -42,7 +42,7 @@ public class GraphicObject extends Rectangle {
         Paint color;
         switch (obj) {
             case WALL:
-                color = wallColor;
+                color = m_wallColor;
                 break;
 
             case CRATE:
@@ -87,7 +87,7 @@ public class GraphicObject extends Rectangle {
         this.setWidth(30);
         if (obj == GameObject.CRATE) {
 
-            ImagePattern imagePattern = new ImagePattern(image,
+            ImagePattern imagePattern = new ImagePattern(m_image,
                     -30 * 3 - 1, 0, 200, 200, false);
 
             this.setFill(imagePattern);
@@ -110,23 +110,23 @@ public class GraphicObject extends Rectangle {
      * @return  ImagePattern
      */
     private ImagePattern keeperImagePattern() {
-        ImagePattern imagePattern = new ImagePattern(image,
+        ImagePattern imagePattern = new ImagePattern(m_image,
                 -30 * 12 - 1, 0, 200, 200, false);
         switch (keyCode) {
             case UP:
-                imagePattern = new ImagePattern(image,
+                imagePattern = new ImagePattern(m_image,
                         -30 * 12 - 5, 0, 400, 200, false);
                 break;
             case DOWN:
-                imagePattern = new ImagePattern(image,
+                imagePattern = new ImagePattern(m_image,
                         -30 * 11 + 20, -30 * 4, 360, 200, false);
                 break;
             case LEFT:
-                imagePattern = new ImagePattern(image,
+                imagePattern = new ImagePattern(m_image,
                         -30 * 10 + 20, -30 * 3, 360, 200, false);
                 break;
             case RIGHT:
-                imagePattern = new ImagePattern(image,
+                imagePattern = new ImagePattern(m_image,
                         -30 * 10 + 20, -30 * 4, 360, 200, false);
                 break;
 
