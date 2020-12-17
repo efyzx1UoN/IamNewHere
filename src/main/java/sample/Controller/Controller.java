@@ -18,62 +18,88 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author Zihui xu - Modified
+ *  *   @version 1.0
+ *  Setting Gui here
+ */
 public class Controller implements Initializable{
 	
 	@FXML
-	Button btnStart;
+	Button m_btnStart;
 	@FXML
-	ColorPicker colorPicker;
+	ColorPicker m_colorPicker;
 	@FXML 
-	TextField txtName;
+	TextField m_txtName;
 	@FXML
-	ListView<String> scoreList;
+	ListView<String> m_scoreList;
 	
 	
-	private Color wallColor=Color.BLACK;
+	private Color m_wallColor=Color.BLACK;
 	
-	private Stage stage;
-	
+	private Stage m_stage;
+
+	/**
+	 * Start button to start game
+	 * @param mouseEvent is MouseEvent Object
+	 */
 	public void startClick(MouseEvent mouseEvent) {
 		Main main=new Main();
-		main.setWallColor(wallColor);
+		main.setWallColor(m_wallColor);
 		try {
 			main.start(new Stage());
-			main.setPname(txtName.getText());
+			main.setPname(m_txtName.getText());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		stage=(Stage)btnStart.getScene().getWindow();
-		stage.close();
+		m_stage=(Stage)m_btnStart.getScene().getWindow();
+		m_stage.close();
 		
 		
-	}
-	
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
-	
-	public void pickColor(ActionEvent actionEvent) {
-		
-		wallColor=colorPicker.getValue();
 	}
 
+	/**
+	 * Setting stage
+	 * @param stage is Stage Object
+	 */
+	public void setStage(Stage stage) {
+		this.m_stage = stage;
+	}
+
+	/**
+	 * Getting Color value here
+	 * @param actionEvent is Action Object
+	 */
+	public void pickColor(ActionEvent actionEvent) {
+		
+		m_wallColor=m_colorPicker.getValue();
+	}
+
+	/**
+	 * Load Score here
+	 * @param location  is URL Object
+	 * @param resources is ResourceBundle Object
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		colorPicker.setValue(Color.BLACK);
+		m_colorPicker.setValue(Color.BLACK);
 		loadScore();
 		
 		
 	}
-	
+
+	/**
+	 * Initial Score here
+	 */
 	private void loadScore() {
 		try {
-			BufferedReader bufferedReader=new BufferedReader(new FileReader("data/score.txt"));
+			BufferedReader bufferedReader=new BufferedReader(
+					new FileReader("data/score.txt"));
 			String line;
 			while ((line=bufferedReader.readLine())!=null) {
-				scoreList.getItems().add(line);
+				m_scoreList.getItems().add(line);
 			}
 			
 			bufferedReader.close();
