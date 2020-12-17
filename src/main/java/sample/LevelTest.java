@@ -11,57 +11,83 @@ import sample.Game.GameObject;
 import sample.Level;
 import sample.StartMeUp;
 
+/**
+ *  @author Zihui xu - Modified
+ *   @version 1.0
+ *   Class is testing Level Class
+ */
 public class LevelTest {
 
-	Level level;
-	StartMeUp startMeUp;
+	Level m_level;
+	StartMeUp m_startMeUp;
+
+	/**
+	 * Junit Test level get source
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
-		InputStream in = getClass().getClassLoader().getResourceAsStream("SampleGame.skb");
-		startMeUp=new StartMeUp(in, true);
-		level=startMeUp.getCurrentLevel();
+		InputStream in = getClass().getClassLoader().
+				getResourceAsStream("SampleGame.skb");
+		m_startMeUp=new StartMeUp(in, true);
+		m_level=m_startMeUp.getCurrentLevel();
 	}
 
-	
 
+	/**
+	 * Junit Test isComplete
+	 */
 	@Test
 	public void testIsComplete() {
-		assertFalse(level.isComplete());
+		assertFalse(m_level.isComplete());
 	}
 
-	
 
+	/**
+	 * Junit Test GetIndex
+	 */
 	@Test
 	public void testGetIndex() {
-		assertTrue(level.getIndex()==1);
+		assertTrue(m_level.getIndex()==1);
 	}
 
+	/**
+	 * Junit Test GetKeeperPosition
+	 */
 	@Test
 	public void testGetKeeperPosition() {
 		
-		assertEquals(level.getKeeperPosition(), new Point(18,10));
+		assertEquals(m_level.getKeeperPosition(), new Point(18,10));
 	}
 
-	
 
+	/**
+	 * Junit Test GetObjectAt
+	 */
 	@Test
 	public void testGetObjectAt() {
-		assertTrue(level.getObjectAt(new Point(0,0))== GameObject.WALL);
+		assertTrue(m_level.getObjectAt(
+				new Point(0,0))== GameObject.WALL);
 	}
-	
 
+	/**
+	 * Junit Test MoveGameObjectTo
+	 */
 	@Test
 	public void testMoveGameObjectTo() {
-		startMeUp.move(new Point(0, -1));
-		assertEquals(level.getKeeperPosition(), new Point(18,9));
+		m_startMeUp.move(new Point(0, -1));
+		assertEquals(m_level.getKeeperPosition(), new Point(18,9));
 	}
 
+	/**
+	 * Junit Test LogMove
+	 */
 	@Test
 	public void testLogMove() {
-		startMeUp.move(new Point(0, -1));
-		assertEquals(level.getKeeperPosition(), new Point(18,9));
-		startMeUp.undo();
-		assertEquals(level.getKeeperPosition(), new Point(18,10));
+		m_startMeUp.move(new Point(0, -1));
+		assertEquals(m_level.getKeeperPosition(), new Point(18,9));
+		m_startMeUp.undo();
+		assertEquals(m_level.getKeeperPosition(), new Point(18,10));
 	}
 
 	

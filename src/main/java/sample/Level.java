@@ -72,7 +72,7 @@ public final class Level implements Iterable<GameObject> {
      * Check if is complete
      * @return
      */
-    boolean isComplete() {
+    public boolean isComplete() {
         int cratedDiamondsCount = 0;
         for (int row = 0; row < objectsGrid.ROWS; row++) {
             for (int col = 0; col < objectsGrid.COLUMNS; col++) {
@@ -99,7 +99,7 @@ public final class Level implements Iterable<GameObject> {
      * return index
      * @return
      */
-    int getIndex() {
+    public int getIndex() {
         return index;
     }
 
@@ -107,7 +107,7 @@ public final class Level implements Iterable<GameObject> {
      * return keeperPosition
      * @return
      */
-    Point getKeeperPosition() {
+    public Point getKeeperPosition() {
         return keeperPosition;
     }
 
@@ -126,7 +126,7 @@ public final class Level implements Iterable<GameObject> {
      * @param p is point object
      * @return
      */
-    GameObject getObjectAt(Point p) {
+    public GameObject getObjectAt(Point p) {
         return objectsGrid.getGameObjectAt(p);
     }
 
