@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import sample.Game.GameObject;
 
+/**
+ *
+ */
 public class GameGridTest {
 
 	GameGrid gameGrid;

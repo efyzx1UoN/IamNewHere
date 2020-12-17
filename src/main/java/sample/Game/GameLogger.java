@@ -11,37 +11,66 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/**
+ * @author Zihui xu - Modified
+ *  @version 1.0
+ *  Setting Game Characters
+ */
 public class GameLogger extends Logger {
 
-    private static Logger logger = Logger.getLogger("GameLogger");
-    private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    private Calendar calendar = Calendar.getInstance();
+    private static Logger m_logger = Logger.getLogger("GameLogger");
+    private DateFormat m_dateFormat = new SimpleDateFormat(
+            "dd/MM/yyyy HH:mm:ss");
+    private Calendar m_calendar = Calendar.getInstance();
 
+    /**
+     * Setting Game Logger
+     * @throws IOException
+     */
     public GameLogger() throws IOException {
         super("GameLogger", null);
 
-        File directory = new File(System.getProperty("user.dir") + "/" + "logs");
+        File directory = new File(System.
+                getProperty("user.dir") + "/" + "logs");
         directory.mkdirs();
 
-        FileHandler fh = new FileHandler(directory + "/" + StartMeUp.GAME_NAME + ".log");
-        logger.addHandler(fh);
+        FileHandler fh = new FileHandler(directory + "/" +
+                StartMeUp.GAME_NAME + ".log");
+        m_logger.addHandler(fh);
         SimpleFormatter formatter = new SimpleFormatter();
         fh.setFormatter(formatter);
     }
 
+    /**
+     * Create Format Message
+     * @param message is String Object
+     * @return
+     */
     private String createFormattedMessage(String message) {
-        return dateFormat.format(calendar.getTime()) + " -- " + message;
+        return m_dateFormat.format(m_calendar.getTime()) + " -- " + message;
     }
 
+    /**
+     * Create Message
+     * @param message is String Object
+     */
     public void info(String message) {
-        logger.info(createFormattedMessage(message));
+        m_logger.info(createFormattedMessage(message));
     }
 
+    /**
+     *  Warning  Message
+     * @param message is String Object
+     */
     public void warning(String message) {
-        logger.warning(createFormattedMessage(message));
+        m_logger.warning(createFormattedMessage(message));
     }
 
+    /**
+     * Create Message
+     * @param message is String Object
+     */
     public void severe(String message) {
-        logger.severe(createFormattedMessage(message));
+        m_logger.severe(createFormattedMessage(message));
     }
 }
