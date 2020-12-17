@@ -27,33 +27,52 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-
+/**
+ * @author Zihui xu - Modified
+ *  *   @version 1.0
+ *  Start the game here
+ */
 
 public class Main extends Application {
 
-    private Stage primaryStage;
-    private StartMeUp gameEngine;
-    private GridPane gameGrid;
-    private File saveFile;
-    private MenuBar MENU;
-    private Color wallColor;
-    
-    
+    private Stage m_primaryStage;
+    private StartMeUp m_gameEngine;
+    private GridPane m_gameGrid;
+    private File m_saveFile;
+    private MenuBar m_MENU;
+    private Color m_wallColor;
+
+    /**
+     *  SettingPname Here
+      * @param pString is String Object
+     */
     public void setPname(String pString) {
-		gameEngine.setPname(pString);
+		m_gameEngine.setPname(pString);
 	}
-    
+
+    /***
+     * Setting color here
+     * @param wallColor is Color Object
+     */
    public void setWallColor(Color wallColor) {
-	this.wallColor = wallColor;
+	this.m_wallColor = wallColor;
 	GraphicObject.setWallColor(wallColor);
 }
 
-
+    /***
+     * Main Method
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
         System.out.println("Done!");
     }
 
+    /***
+     * Initialize game here
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 /*
@@ -66,9 +85,9 @@ public class Main extends Application {
 
 
 
-        this.primaryStage = primaryStage;
+        this.m_primaryStage = primaryStage;
 
-        MENU = new MenuBar();
+        m_MENU = new MenuBar();
 
         MenuItem menuItemSaveGame = new MenuItem("Save Game");
         menuItemSaveGame.setDisable(true);
@@ -78,7 +97,8 @@ public class Main extends Application {
         MenuItem menuItemExit = new MenuItem("Exit");
         menuItemExit.setOnAction(actionEvent -> closeGame());
         Menu menuFile = new Menu("File");
-        menuFile.getItems().addAll(menuItemSaveGame, menuItemLoadGame, new SeparatorMenuItem(), menuItemExit);
+        menuFile.getItems().addAll(menuItemSaveGame, menuItemLoadGame,
+                new SeparatorMenuItem(), menuItemExit);
 
         MenuItem menuItemUndo = new MenuItem("Undo");
         //menuItemUndo.setDisable(true);
@@ -97,22 +117,25 @@ public class Main extends Application {
         Menu menuAbout = new Menu("About");
         menuAbout.setOnAction(actionEvent -> showAbout());
         menuAbout.getItems().addAll(menuItemGame);
-        MENU.getMenus().addAll(menuFile, menuLevel, menuAbout);
-        gameGrid = new GridPane();
+        m_MENU.getMenus().addAll(menuFile, menuLevel, menuAbout);
+        m_gameGrid = new GridPane();
         GridPane root = new GridPane();
-        root.add(MENU, 0, 0);
-        root.add(gameGrid, 0, 1);
+        root.add(m_MENU, 0, 0);
+        root.add(m_gameGrid, 0, 1);
         primaryStage.setTitle(StartMeUp.GAME_NAME);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-        primaryStage.setOnCloseRequest(e->gameEngine.saveScore());
+        primaryStage.setOnCloseRequest(e->m_gameEngine.saveScore());
         loadDefaultSaveFile(primaryStage);
     }
 
-    void loadDefaultSaveFile(Stage primaryStage) { this.primaryStage = primaryStage;
+    void loadDefaultSaveFile(Stage primaryStage) { this.m_primaryStage =
+            primaryStage;
         System.out.println("Hi");
-        System.out.println(getClass().getClassLoader().getResource("SampleGame.skb"));
-        InputStream in = getClass().getClassLoader().getResourceAsStream("SampleGame.skb");
+        System.out.println(getClass().getClassLoader().
+                getResource("SampleGame.skb"));
+        InputStream in = getClass().getClassLoader().
+                getResourceAsStream("SampleGame.skb");
         System.out.println(in);
         initializeGame(in);
         System.out.println("Hi");
@@ -120,56 +143,91 @@ public class Main extends Application {
         System.out.println("Hi");
     }
 
+    /***
+     * initializeGame
+     * @param input
+     */
     public void initializeGame(InputStream input) {
-        gameEngine = new StartMeUp(input, true);
+        m_gameEngine = new StartMeUp(input, true);
         reloadGrid();
     }
 
+    /**
+     * Setting Event here
+     */
     public void setEventFilter() {
-        primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            gameEngine.handleKey(event.getCode());
+        m_primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            m_gameEngine.handleKey(event.getCode());
             reloadGrid();
-        });}
+        });
+    }
+
+    /**
+     * Loading Game here
+     * @throws FileNotFoundException
+     */
     public void loadGameFile() throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Save File");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sokoban save file", "*.skb"));
-        saveFile = fileChooser.showOpenDialog(primaryStage);
+        fileChooser.getExtensionFilters().add(new FileChooser.
+                ExtensionFilter("Sokoban save file", "*.skb"));
+        m_saveFile = fileChooser.showOpenDialog(m_primaryStage);
 
-        if (saveFile != null) {
+        if (m_saveFile != null) {
             if (StartMeUp.isDebugActive()) {
-                StartMeUp.logger.info("Loading save file: " + saveFile.getName());
+                StartMeUp.logger.info("Loading save file: " +
+                        m_saveFile.getName());
             }
-            initializeGame(new FileInputStream(saveFile));
+            initializeGame(new FileInputStream(m_saveFile));
         }}
+
+    /***
+     * Showing Victory Message
+     * Getting Level Message
+     * Go to Next Level
+     */
     private void reloadGrid() {
-        if (gameEngine.isGameComplete()) {
+        if (m_gameEngine.isGameComplete()) {
             showVictoryMessage();
             return;
         }
 
-        Level currentLevel = gameEngine.getCurrentLevel();
-        Level.LevelIterator levelGridIterator = (Level.LevelIterator) currentLevel.iterator();
-        gameGrid.getChildren().clear();
+        Level currentLevel = m_gameEngine.getCurrentLevel();
+        Level.LevelIterator levelGridIterator = (Level.LevelIterator)
+                currentLevel.iterator();
+        m_gameGrid.getChildren().clear();
         while (levelGridIterator.hasNext()) {
-            addObjectToGrid(levelGridIterator.next(), levelGridIterator.getCurrentPosition());
+            addObjectToGrid(levelGridIterator.next(),
+                    levelGridIterator.getCurrentPosition());
         }
-        gameGrid.autosize();
-        primaryStage.sizeToScene();
+        m_gameGrid.autosize();
+        m_primaryStage.sizeToScene();
     }
 
+    /**
+     * Showing Message
+     */
     public void showVictoryMessage() {
         String dialogTitle = "Game Over!";
-        String dialogMessage = "You completed " + gameEngine.getMapSetName() + " in " + gameEngine.getMovesCount() + " moves!";
+        String dialogMessage =
+                "You completed " + m_gameEngine.getMapSetName()
+                        + " in " + m_gameEngine.getMovesCount() + " moves!";
         MotionBlur mb = new MotionBlur(2, 3);
 
         newDialog(dialogTitle, dialogMessage, mb);
     }
 
-    public void newDialog(String dialogTitle, String dialogMessage, Effect dialogMessageEffect) {
+    /**
+     * Setting Scene here
+     * @param dialogTitle
+     * @param dialogMessage
+     * @param dialogMessageEffect
+     */
+    public void newDialog(String dialogTitle, String dialogMessage,
+                          Effect dialogMessageEffect) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(primaryStage);
+        dialog.initOwner(m_primaryStage);
         dialog.setResizable(false);
         dialog.setTitle(dialogTitle);
 
@@ -191,17 +249,30 @@ public class Main extends Application {
         dialog.show();
     }
 
+    /**
+     * Setting location
+     * @param gameObject
+     * @param location
+     */
     public void addObjectToGrid(GameObject gameObject, Point location) {
         GraphicObject graphicObject = new GraphicObject(gameObject);
         
-        gameGrid.add(graphicObject, location.y, location.x);
+        m_gameGrid.add(graphicObject, location.y, location.x);
     }
 
+    /**
+     *
+     * close game
+     */
     public void closeGame() {
         System.exit(0);
     }
     public void saveGame() {
     }
+
+    /**
+     * load game
+     */
     public void loadGame() {
         try {
             loadGameFile();
@@ -210,8 +281,11 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * undo,back to last step
+     */
     public void undo() { 
-    	gameEngine.undo(); 
+    	m_gameEngine.undo();
     	reloadGrid();
     
     }
@@ -221,24 +295,36 @@ public class Main extends Application {
     	
     }
 
+    /**
+     * showing about message
+     */
     public void showAbout() {
         String title = "About This Game";
         String message = "Enjoy the Game!\n";
 
         newDialog(title, message, null);
     }
+
+    /**
+     * play music
+     * @param radioMenuItemMusic
+     */
     public void toggleMusic(RadioMenuItem radioMenuItemMusic) {
         // TODO
     	
     	if (radioMenuItemMusic.isSelected()) {
-			gameEngine.playMusic();
+			m_gameEngine.playMusic();
 		}else {
-			gameEngine.stopMusic();
+			m_gameEngine.stopMusic();
 		}
     	
     }
+
+    /**
+     * Debug here
+     */
     public void toggleDebug() {
-        gameEngine.toggleDebug();
+        m_gameEngine.toggleDebug();
         reloadGrid();
     }
 

@@ -23,7 +23,8 @@ public class StartWin extends Application {
 		//FXMLLoader fxmlLoader = new FXMLLoader();
 		//String viewerFxml = "start.fxml";
 		System.out.println(getClass().getResource("/fxml/start.fxml"));
-		Parent root = FXMLLoader.load(getClass().getResource("/fxml/start.fxml"));
+		Parent root = FXMLLoader.load(getClass().
+				getResource("/fxml/start.fxml"));
 		//AnchorPane page = (AnchorPane) fxmlLoader.load(this.getClass().getResource(viewerFxml).openStream());
 		//Controller controller=fxmlLoader.getController(); 
 		//controller.setStage(primaryStage);
