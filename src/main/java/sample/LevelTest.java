@@ -14,7 +14,7 @@ import sample.StartMeUp;
 /**
  *  @author Zihui xu - Modified
  *   @version 1.0
- *   Class is testing Level Class
+ *   Class is testing Level Class Methods
  */
 public class LevelTest {
 
