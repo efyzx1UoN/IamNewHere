@@ -219,9 +219,9 @@ public class Main extends Application {
 
     /**
      * Setting Scene here
-     * @param dialogTitle
-     * @param dialogMessage
-     * @param dialogMessageEffect
+     * @param dialogTitle is String Object
+     * @param dialogMessage is String Object
+     * @param dialogMessageEffect is Effect Object
      */
     public void newDialog(String dialogTitle, String dialogMessage,
                           Effect dialogMessageEffect) {
@@ -251,8 +251,8 @@ public class Main extends Application {
 
     /**
      * Setting location
-     * @param gameObject
-     * @param location
+     * @param gameObject is gameObject Object
+     * @param location is Point Object
      */
     public void addObjectToGrid(GameObject gameObject, Point location) {
         GraphicObject graphicObject = new GraphicObject(gameObject);
@@ -307,7 +307,7 @@ public class Main extends Application {
 
     /**
      * play music
-     * @param radioMenuItemMusic
+     * @param radioMenuItemMusic  is RadioMenuItem Object
      */
     public void toggleMusic(RadioMenuItem radioMenuItemMusic) {
         // TODO
