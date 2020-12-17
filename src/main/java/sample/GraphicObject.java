@@ -14,7 +14,7 @@ import sample.Game.GameObject;
 /**
  * @author Zihui xu - Modified
  * @version 1.0
- * render elements of the game
+ * Class is doing render elements of the game
  */
 public class GraphicObject extends Rectangle {
 

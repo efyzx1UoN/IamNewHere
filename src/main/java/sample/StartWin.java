@@ -6,6 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * @author Zihui xu - Modified
+ *   @version 1.0
+ *   Start the initialization Interface
+ */
 public class StartWin extends Application {
 
 	@Override
