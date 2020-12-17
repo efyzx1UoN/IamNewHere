@@ -12,7 +12,11 @@ import javafx.stage.Stage;
  *   Start the initialization Interface
  */
 public class StartWin extends Application {
-
+	/***
+	 * Method is setting Stage
+	 * @param primaryStage is Stage Object
+	 * @throws Exception
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
@@ -29,6 +33,10 @@ public class StartWin extends Application {
 
 	}
 
+	/***
+	 * Main Method
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
