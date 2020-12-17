@@ -36,7 +36,7 @@ public class StartWin extends Application {
 
 	/***
 	 * Main Method
-	 * @param args
+	 * @param args is String Object
 	 */
 	public static void main(String[] args) {
 		launch(args);

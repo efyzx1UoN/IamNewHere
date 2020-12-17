@@ -78,7 +78,7 @@ public class GraphicObject extends Rectangle {
 
             default:
                 String message = "Error in Level constructor. Object not recognized.";
-                StartMeUp.logger.severe(message);
+                StartMeUp.m_logger.severe(message);
                 throw new AssertionError(message);
         }
 

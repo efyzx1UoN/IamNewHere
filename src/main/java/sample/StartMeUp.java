@@ -14,24 +14,42 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * @author Zihui xu - Modified
+ *    @version 1.0
+ *    Setting Interface Character here
+ */
 public class StartMeUp {
-	
 	class Score implements Comparable<Score>{
 		private String name;
 		private int sc;
-		
+
+        /**
+         * Get Name and Score
+         * @param name is String object
+         * @param sc is integer Object
+         */
 		public Score(String name,int sc) {
 			// TODO Auto-generated constructor stub
 			this.name=name;
 			this.sc=sc;
 		}
 
+        /**
+         * Compare Score
+         * @param o
+         * @return
+         */
 		@Override
 		public int compareTo(Score o) {
 			// TODO Auto-generated method stub
 			return sc-o.sc;
 		}
-		
+
+        /**
+         *  ToString Method
+         * @return
+         */
 		@Override
 		public String toString() {
 			// TODO Auto-generated method stub
@@ -42,32 +60,40 @@ public class StartMeUp {
 		
 	}
 
-    public static final String GAME_NAME = "BestSokobanEverV6";
-    public static GameLogger logger;
+    public static final String m_GAME_NAME = "BestSokobanEverV6";
+    public static GameLogger m_logger;
     private static boolean debug = false;
-    private Level currentLevel;
-    private String mapSetName;
-    private List<Level> levels;
-    private boolean gameComplete = false;
-    private int movesCount = 0;
-    private MediaPlayer player;
-    private int score=0;
-    private int level=1;
-    private ArrayList<Score> scoreList=new ArrayList<Score>();
+    private Level m_currentLevel;
+    private String m_mapSetName;
+    private List<Level> m_levels;
+    private boolean m_gameComplete = false;
+    private int m_movesCount = 0;
+    private MediaPlayer m_player;
+    private int m_score=0;
+    private int m_level=1;
+    private ArrayList<Score> m_scoreList=new ArrayList<Score>();
     
-    private String pname;
-    
-    public void setPname(String pname) {
-		this.pname = pname;
-	}
-    
-    
+    private String m_pname;
 
+    /**
+     * Getting pname
+     * @param pname is String Object
+     */
+    public void setPname(String pname) {
+		this.m_pname = pname;
+	}
+
+
+    /**
+     * Create Player
+     * @param input
+     * @param production
+     */
     public StartMeUp(InputStream input, boolean production) {
         try {
-            logger = new GameLogger();
-            levels = loadGameFile(input);
-            currentLevel = getNextLevel();
+            m_logger = new GameLogger();
+            m_levels = loadGameFile(input);
+            m_currentLevel = getNextLevel();
 
             if (production) {
                 createPlayer();
@@ -75,7 +101,7 @@ public class StartMeUp {
         } catch (IOException x) {
             System.out.println("Cannot create logger.");
         } catch (NoSuchElementException e) {
-            logger.warning("Cannot load the default save file: " + e.getStackTrace());
+            m_logger.warning("Cannot load the default save file: " + e.getStackTrace());
         } 
       
 		
@@ -84,18 +110,34 @@ public class StartMeUp {
         loadScore();
     }
 
+    /**
+     * Debug Active
+     * @return
+     */
     public static boolean isDebugActive() {
         return debug;
     }
 
+    /**
+     *  MovesCount
+     * @return
+     */
     public int getMovesCount() {
-        return movesCount;
+        return m_movesCount;
     }
 
+    /**
+     * MapSetName
+     * @return
+     */
     public String getMapSetName() {
-        return mapSetName;
+        return m_mapSetName;
     }
 
+    /**
+     *  Setting code and print it
+     * @param code is keycode Object
+     */
     public void handleKey(KeyCode code) {
         switch (code) {
             case UP:
@@ -127,6 +169,10 @@ public class StartMeUp {
         }
     }
 
+    /**
+     * Level point
+     * @param delta  is point Object
+     */
     public void move(Point delta) {
         if (isGameComplete()) {
             return;
@@ -134,17 +180,18 @@ public class StartMeUp {
         
         getCurrentLevel().logMove();
 
-        Point keeperPosition = currentLevel.getKeeperPosition();
-        GameObject keeper = currentLevel.getObjectAt(keeperPosition);
+        Point keeperPosition = m_currentLevel.getKeeperPosition();
+        GameObject keeper = m_currentLevel.getObjectAt(keeperPosition);
         Point targetObjectPoint = GameGrid.translatePoint(keeperPosition, delta);
-        GameObject keeperTarget = currentLevel.getObjectAt(targetObjectPoint);
+        GameObject keeperTarget = m_currentLevel.getObjectAt(targetObjectPoint);
 
         if (StartMeUp.isDebugActive()) {
             System.out.println("Current level state:");
-            System.out.println(currentLevel.toString());
+            System.out.println(m_currentLevel.toString());
             System.out.println("Keeper pos: " + keeperPosition);
             System.out.println("Movement source obj: " + keeper);
-            System.out.printf("Target object: %s at [%s]", keeperTarget, targetObjectPoint);
+            System.out.printf("Target object: %s at [%s]", keeperTarget,
+                    targetObjectPoint);
         }
 
         boolean keeperMoved = false;
@@ -156,60 +203,72 @@ public class StartMeUp {
 
             case CRATE:
 
-                GameObject crateTarget = currentLevel.getTargetObject(targetObjectPoint, delta);
+                GameObject crateTarget =
+                        m_currentLevel.getTargetObject(targetObjectPoint,
+                                delta);
                 if (crateTarget != GameObject.FLOOR) {
                     break;
                 }
 
-                currentLevel.moveGameObjectBy(keeperTarget, targetObjectPoint, delta);
-                currentLevel.moveGameObjectBy(keeper, keeperPosition, delta);
+                m_currentLevel.moveGameObjectBy(keeperTarget,
+                        targetObjectPoint, delta);
+                m_currentLevel.moveGameObjectBy(keeper, keeperPosition, delta);
                 keeperMoved = true;
                 break;
 
             case FLOOR:
-                currentLevel.moveGameObjectBy(keeper, keeperPosition, delta);
+                m_currentLevel.moveGameObjectBy(keeper, keeperPosition, delta);
                 keeperMoved = true;
                 break;
 
             default:
-                logger.severe("The object to be moved was not a recognised GameObject.");
+                m_logger.severe("The object to be moved was not a recognised " +
+                        "GameObject.");
                 throw new AssertionError("This should not have happened. Report this problem to the developer.");
         }
 
         if (keeperMoved) {
             keeperPosition.translate((int) delta.getX(), (int) delta.getY());
-            movesCount++;
-            if (currentLevel.isComplete()) {
+            m_movesCount++;
+            if (m_currentLevel.isComplete()) {
                 if (isDebugActive()) {
                     System.out.println("Level complete!");
                 }
 
-                currentLevel = getNextLevel();
-                score+=level++;
+                m_currentLevel = getNextLevel();
+                m_score+=m_level++;
                 scoreDialog();
             }
         }
     }
-    
+
+    /**
+     *  scoreDialog
+     *  scoreList
+     */
     private void scoreDialog() {
     	StringBuilder stringBuilder=new StringBuilder();
     	stringBuilder.append("\nScoreList:\n");
-    	for (Score score:scoreList) {
+    	for (Score score:m_scoreList) {
 			stringBuilder.append(score+"\n");
 		}
-		JOptionPane.showMessageDialog(null, pname+" Score:"+score+stringBuilder.toString());
+		JOptionPane.showMessageDialog(null,
+                m_pname+" Score:"+m_score+stringBuilder.toString());
 	}
-    
+
+    /**
+     * saving Score
+     */
     public void saveScore() {
-    	if (score==0) {
+    	if (m_score==0) {
 			return;
 		}
-		scoreList.add(new Score(pname, score));
+		m_scoreList.add(new Score(m_pname, m_score));
 		PrintWriter printWriter;
-		Collections.sort(scoreList,Collections.reverseOrder());
+		Collections.sort(m_scoreList,Collections.reverseOrder());
 		try {
 			printWriter = new PrintWriter("score.txt");
-			for (Score score:scoreList) {
+			for (Score score:m_scoreList) {
 				printWriter.println(score);
 			}
 			printWriter.close();
@@ -220,15 +279,19 @@ public class StartMeUp {
 		
 		
 	}
-    
+
+    /**
+     *  loadScore
+     */
     private void loadScore() {
 		try {
-			BufferedReader bufferedReader=new BufferedReader(new FileReader("score.txt"));
+			BufferedReader bufferedReader=new BufferedReader
+                    (new FileReader("score.txt"));
 			String line;
 			while ((line=bufferedReader.readLine())!=null) {
 				String[] lines=line.split(",");
 				Score score=new Score(lines[0], Integer.parseInt(lines[1]));
-				scoreList.add(score);
+				m_scoreList.add(score);
 			}
 			bufferedReader.close();
 		} catch (IOException e) {
@@ -238,11 +301,17 @@ public class StartMeUp {
 		
 	}
 
+    /**
+     *  load Game File
+     * @param input is InputStream Object
+     * @return
+     */
     public List<Level> loadGameFile(InputStream input) {
         List<Level> levels = new ArrayList<>(5);
         int levelIndex = 0;
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
+        try (BufferedReader reader = new BufferedReader
+                (new InputStreamReader(input))) {
             boolean parsedFirstLevel = false;
             List<String> rawLevel = new ArrayList<>();
             String levelName = "";
@@ -253,20 +322,22 @@ public class StartMeUp {
                 // Break the loop if EOF is reached
                 if (line == null) {
                     if (rawLevel.size() != 0) {
-                        Level parsedLevel = new Level(levelName, ++levelIndex, rawLevel);
+                        Level parsedLevel = new Level
+                                (levelName, ++levelIndex, rawLevel);
                         levels.add(parsedLevel);
                     }
                     break;
                 }
 
                 if (line.contains("MapSetName")) {
-                    mapSetName = line.replace("MapSetName: ", "");
+                    m_mapSetName = line.replace("MapSetName: ", "");
                     continue;
                 }
 
                 if (line.contains("LevelName")) {
                     if (parsedFirstLevel) {
-                        Level parsedLevel = new Level(levelName, ++levelIndex, rawLevel);
+                        Level parsedLevel = new Level
+                                (levelName, ++levelIndex, rawLevel);
                         levels.add(parsedLevel);
                         rawLevel.clear();
                     } else {
@@ -286,27 +357,38 @@ public class StartMeUp {
             }
 
         } catch (IOException e) {
-            logger.severe("Error trying to load the game file: " + e);
+            m_logger.severe("Error trying to load the game file: " + e);
         } catch (NullPointerException e) {
-            logger.severe("Cannot open the requested file: " + e);
+            m_logger.severe("Cannot open the requested file: " + e);
         }
 
         return levels;
     }
-    
+
+    /**
+     * undo
+     */
     public void undo() {
 		getCurrentLevel().undo();
 	}
 
+    /**
+     * Game Complete
+     * @return
+     */
     public boolean isGameComplete() {
-        return gameComplete;
+        return m_gameComplete;
     }
 
+    /**
+     * Create Player
+     */
     public void createPlayer() {
         //File filePath = new File(getClass().getClassLoader().getResource("music/puzzle_theme.wav").toString());
        try {
-    	   Media music = new Media(this.getClass().getResource("puzzle_theme.wav").toString());
-           player = new MediaPlayer(music);
+    	   Media music = new Media(this.getClass().
+                   getResource("puzzle_theme.wav").toString());
+           m_player = new MediaPlayer(music);
 	} catch (Exception e) {
 		// TODO: handle exception
 	}
@@ -315,37 +397,58 @@ public class StartMeUp {
         //player.setOnEndOfMedia(() -> player.seek(Duration.ZERO));
     }
 
+    /**
+     * play music
+     */
     public void playMusic() {
-        player.play();
+        m_player.play();
     }
 
+    /**
+     * stop music
+     */
     public void stopMusic() {
-        player.stop();
+        m_player.stop();
     }
 
+    /**
+     * check music playing
+     * @return
+     */
     public boolean isPlayingMusic() {
 //        return player.getStatus() == MediaPlayer.Status.PLAYING;
         return false;
     }
 
+    /**
+     * get next level
+     * @return
+     */
     public Level getNextLevel() {
-        if (currentLevel == null) {
-            return levels.get(0);
+        if (m_currentLevel == null) {
+            return m_levels.get(0);
         }
 
-        int currentLevelIndex = currentLevel.getIndex();
-        if (currentLevelIndex < levels.size()) {
-            return levels.get(currentLevelIndex + 1);
+        int currentLevelIndex = m_currentLevel.getIndex();
+        if (currentLevelIndex < m_levels.size()) {
+            return m_levels.get(currentLevelIndex + 1);
         }
 
-        gameComplete = true;
+        m_gameComplete = true;
         return null;
     }
 
+    /**
+     * get level
+     * @return
+     */
     public Level getCurrentLevel() {
-        return currentLevel;
+        return m_currentLevel;
     }
 
+    /**
+     * debug
+     */
     public void toggleDebug() {
         debug = !debug;
     }

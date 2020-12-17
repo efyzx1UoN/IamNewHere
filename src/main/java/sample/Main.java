@@ -122,7 +122,7 @@ public class Main extends Application {
         GridPane root = new GridPane();
         root.add(m_MENU, 0, 0);
         root.add(m_gameGrid, 0, 1);
-        primaryStage.setTitle(StartMeUp.GAME_NAME);
+        primaryStage.setTitle(StartMeUp.m_GAME_NAME);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.setOnCloseRequest(e->m_gameEngine.saveScore());
@@ -175,7 +175,7 @@ public class Main extends Application {
 
         if (m_saveFile != null) {
             if (StartMeUp.isDebugActive()) {
-                StartMeUp.logger.info("Loading save file: " +
+                StartMeUp.m_logger.info("Loading save file: " +
                         m_saveFile.getName());
             }
             initializeGame(new FileInputStream(m_saveFile));
