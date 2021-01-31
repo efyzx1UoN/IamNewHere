@@ -17,7 +17,7 @@ docs under this project
 * Junit test 
 * maven build
 * FXML codes builds GUI 
-* git version control：https://projects.cs.nott.ac.uk/efyzx1/comp2013_efyzx1.git
+* git version control：https://github.com/efyzx1UoN/IamNewHere/edit/master
 * mvc code
 * undo the game
 
